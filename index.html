@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #e9ecef;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Your Anonymous Messages</h1>
+        <ul id="messageList">
+            <!-- Pesan akan ditambahkan di sini -->
+        </ul>
+    </div>
+
+    <script>
+        // Ambil userId dari URL
+        const userId = new URLSearchParams(window.location.search).get('user') || 'defaultUser';
+
+        // Ambil pesan dari localStorage
+        const userMessages = JSON.parse(localStorage.getItem(userId)) || [];
+
+        // Menampilkan pesan ke dalam list
+        const messageList = document.getElementById('messageList');
+        if (userMessages.length > 0) {
+            userMessages.forEach((msg) => {
+                const li = document.createElement('li');
+                li.textContent = msg;
+                messageList.appendChild(li);
+            });
+        } else {
+            messageList.innerHTML = "<p>No messages yet!</p>";
+        }
+    </script>
+
+</body>
+</html>
